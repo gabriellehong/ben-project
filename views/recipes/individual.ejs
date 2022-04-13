@@ -1,0 +1,27 @@
+<%- include("../navbar") %> 
+<div>
+    <div>
+        <%= recipe.name %>
+    </div>
+    <div>
+        <%= recipe.ingredients %>
+    </div>
+    <div>
+        <%= recipe.description %>
+    </div>
+    <div>
+        <%= recipe.cookTime %>
+    </div>
+    <div>
+        <% recipe.comments.map((comment) => { %>
+            <div>
+                <%= comment.comment %> 
+            </div>
+        <% }) %>
+    </div>
+    <% if(user) { %> 
+        <%- include('./comment') %> 
+    <% } else { %> 
+        <div>Sign In to add a comment!</div>
+    <% } %> 
+</div>
