@@ -1,9 +1,6 @@
-const Recipes = require('../models/recipes');
-const Users = require('../models/user');
-
+const { Recipes } = require('../models/recipes');
 
 module.exports = {
-    // index,
     new: newRecipe,
     create: createRecipe,
     one,
@@ -11,26 +8,26 @@ module.exports = {
     comment: addComment,
 };
 
-// function index(req, res){
-//     res.render('recipes/index')
-// }
-
+//get render new recipe page
 function newRecipe(req, res) {
     res.render('recipes/new')
 }
 
+//post new recipe, reroute to all recipes page after
+//first posting new recipe to recipe database, then adding that recipe to the user's database to keep track of all the recipes they've created
 function createRecipe(req,res) {
     Recipes.create(req.body, function(err, recipe) {
         if (err) {
             console.log(err)
         }
         const user = req.user;
-        user.originalRecipes.push(recipe._id);
+        user.originalRecipes.push(recipe);
+        console.log('user original recipe', user)
         user.save();
         res.redirect('recipes/all')
     })
 }
-
+//get one particular recipe
 function one(req,res) {
     Recipes.findById(req.params.id, function(err, recipe) {
         if (err) console.log(err)
@@ -39,10 +36,9 @@ function one(req,res) {
         })
     })
 }
-
+//get all recipes
 function all(req, res){
     Recipes.find({}, function(err, recipes) {
-        console.log(recipes)
         if(err) {
             console.log(err)
         }
@@ -51,7 +47,7 @@ function all(req, res){
         })
     });
 };
-
+//post comment to specific recipe
 function addComment(req, res) {
     const name = req.user.name;
     const date = new Date();

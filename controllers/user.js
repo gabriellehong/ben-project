@@ -1,5 +1,3 @@
-const User = require('../models/user');
-
 function index(req,res) {
     if (!req.user) {
         res.redirect('/')
