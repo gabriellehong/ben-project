@@ -19,7 +19,9 @@
         <div class="col-lg-6 mx-auto">
           <p class="lead mb-4" >For your never ending love for food. Find and share your favorite recipes including your favoite cuisnes and vegetarian options. With our huge selection of recipes, never go hugry again! </p>
           
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+          <form action="/recipes">
+            <input type="submit" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" name="query">
+          </form>
 
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">           
             <a href="/recipes/new" type="button" class="btn btn-primary btn-lg px-4 gap-3">Create Recipe</a>

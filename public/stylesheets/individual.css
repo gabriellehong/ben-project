@@ -1,0 +1,11 @@
+.individual-recipe-wrapper {
+    margin: 50px;
+}
+
+h1, h5 {
+    padding: 20px 0;
+}
+
+.commenter-name {
+    font-weight: bold;
+}

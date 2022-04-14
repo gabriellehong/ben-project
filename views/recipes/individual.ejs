@@ -1,27 +1,41 @@
+ <link rel="stylesheet" href="/stylesheets/individual.css">
 <%- include("../navbar") %> 
-<div>
-    <div>
-        <%= recipe.name %>
+    <div class="individual-recipe-wrapper">
+        <h1><%= recipe.name %></h1>
+        <div>
+            <h3>Ingredients</h3>
+            <ul>
+                <% recipe.ingredients.map((i) => { %>
+                    <li>
+                        <%= i  %> 
+                    </li>
+                <% }) %> 
+            </ul>
+        </div>
+        <div>
+            <h3>Directions</h3>
+            <% recipe.directions.map((i) => { %>
+                <li>
+                    <%= i  %> 
+                </li>
+            <% }) %> 
+        </div>
+        <div>
+            <h5>Cook Time  <%= recipe.cookTime %></h5>
+        </div>
+        <div>
+            <h5>Prep Time: <%= recipe.prepTime %> </h5>
+        </div>
+        <div>
+            <h5>Comments</h5>
+            <% recipe.comments.map((comment) => { %>
+                <div class="commenter-name"><%= comment.name %></div>
+                <div><%= comment.comment %></div>
+            <% }) %>
+        </div>
+        <% if(user) { %> 
+            <%- include('./comments') %> 
+        <% } else { %> 
+            <div>Sign In to add a comment!</div>
+        <% } %> 
     </div>
-    <div>
-        <%= recipe.ingredients %>
-    </div>
-    <div>
-        <%= recipe.description %>
-    </div>
-    <div>
-        <%= recipe.cookTime %>
-    </div>
-    <div>
-        <% recipe.comments.map((comment) => { %>
-            <div>
-                <%= comment.comment %> 
-            </div>
-        <% }) %>
-    </div>
-    <% if(user) { %> 
-        <%- include('./comments') %> 
-    <% } else { %> 
-        <div>Sign In to add a comment!</div>
-    <% } %> 
-</div>
