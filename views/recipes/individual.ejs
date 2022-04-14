@@ -1,6 +1,7 @@
  <link rel="stylesheet" href="/stylesheets/individual.css">
 <%- include("../navbar") %> 
     <div class="individual-recipe-wrapper">
+        <% if (recipe) { %> 
         <h1><%= recipe.name %></h1>
         <div>
             <h3>Ingredients</h3>
@@ -37,5 +38,6 @@
             <%- include('./comments') %> 
         <% } else { %> 
             <div>Sign In to add a comment!</div>
+        <% } %> 
         <% } %> 
     </div>

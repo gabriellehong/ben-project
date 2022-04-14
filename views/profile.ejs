@@ -1,8 +1,17 @@
 <div>
     <%- include('./navbar')  %> 
 
-    porfile page
     <% if(user){%>
-        <% console.log(user) %> 
+        <h1>Hello, <%= user.name %> </h1>
+        <div>Original Recipes:</div>
+        <% user.originalRecipes.map((recipe) => { %> 
+            <div>
+                <a href="/recipes/<%= recipe._id%> "><%= recipe.name %></a>
+                <span>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </span>
+            </div>
+        <% }) %> 
     <% } %>  
 </div>
