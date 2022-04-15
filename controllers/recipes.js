@@ -7,23 +7,30 @@ module.exports = {
     all,
     comment: addComment,
     filter: filterRecipes,
+    delete: deleteRecipe,
+    edit: editRecipe,
 };
 
+//post edit recipe
+function editRecipe(req, res){
+    res.render('recipes/edit')
+}
+//delete original recipe
+function deleteRecipe(req, res){
+    Recipes.deleteOne({ })
+}
 //get filter for searched recipe thru searchbar
 function filterRecipes(req, res) {
-    console.log('query string', req.params.query)
-    Recipes.find({ name: req.params.query}, function(err, recipes){
+    const queryString = req.query;
+        Recipes.find({ name: { "$regex": queryString.query, "$options": "i" }}, function(err, recipes){
         if(err) console.log(err)
-        console.log(recipes)
         res.render("recipes/searched", { recipes })
     })
 }
-
 //get render new recipe page
 function newRecipe(req, res) {
     res.render('recipes/new')
 }
-
 //post new recipe, reroute to all recipes page after
 //first posting new recipe to recipe database, then adding that recipe to the user's database to keep track of all the recipes they've created
 function createRecipe(req,res) {

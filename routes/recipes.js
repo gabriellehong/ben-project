@@ -16,6 +16,8 @@ router.get('/:id', recipesController.one)
 router.post('/', recipesController.create)
 //posting comment
 router.post('/comment/:id', recipesController.comment)
+//edit recipe
+router.get('/edit/:id', recipesController.edit)
 
 
 

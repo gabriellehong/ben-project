@@ -8,10 +8,20 @@
             <div>
                 <a href="/recipes/<%= recipe._id%> "><%= recipe.name %></a>
                 <span>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <a href="/recipes/edit/<% recipe._id %> " id="edit-button">Edit</a>
+                    <button id="delete-button" onClick="deleteRecipe()">Delete</button>
                 </span>
             </div>
         <% }) %> 
     <% } %>  
+    <script>
+        // function editRecipe(recipeID){
+        //     const editButton = document.getElementById('edit-button');
+        //     editButton.load("/recipes/edit/:id")
+        // }
+        function deleteRecipe(recipeID){
+            const deleteBtn = document.getElementById('delete-button');
+            deleteBtn.load()
+        }
+    </script>
 </div>
