@@ -14,14 +14,19 @@ module.exports = {
 };
 //delete original recipede
 function deleteRecipe(req, res){
-    console.log("here", req.params.id)
     Recipes.deleteOne({_id: req.params.id}, function(err, recipe){
         if(err) console.log(err);
-        console.log(req.user)
-        // User.deleteOne({originalRecipes: req.params.id}, function(err, user){
-        //     if (err) console.log(err);
-        //     res.redirect(`/profile`, {recipe})
-        // })
+        console.log(req.user.originalRecipes)
+        const deleteRecipe = req.user.originalRecipes.map((r) => {
+            if (r._id.toString() === req.params.id.toString()) {
+                console.log('hitting here')
+                return r;
+            }
+        })
+        req.user.deleteOne({originalRecipes: deleteRecipe}, function(err, user){
+            if (err) console.log(err);
+            res.render(`/profile`)
+        })
     })
 }
 
