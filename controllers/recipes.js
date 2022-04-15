@@ -12,11 +12,14 @@ module.exports = {
     deleteComment,
 };
 function deleteComment(req,res){
-    Comments.findOne({_id: req.params.id}, function(err, recipe) {
-        if(err) console.log(EvalError)
-        const commentDoc = recipe.comments.userID(req.user._id);
-        commentDoc.remove()
-        res.redirect(`recipes/${reci}`)
+    console.log('=====> ', req.params)
+
+    Recipes.findOne({_id: req.params.id}, async function (err, recipe) {
+        if(err) console.log(err)
+        const updatedComments = recipe.comments.filter((r) => r._id != req.params.commentId)
+        recipe.comments = updatedComments;
+        recipe.save()
+        res.redirect(`/recipes/${recipe._id}`)
     })
 }
 //get to edit recipe page

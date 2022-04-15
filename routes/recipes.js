@@ -5,7 +5,7 @@ const recipesController = require('../controllers/recipes');
 //app routes
 
 // delete comment
-router.post('/delete/:id', recipesController.deleteComment)
+router.post('/delete/:id/:commentId', recipesController.deleteComment)
 //create recipes
 router.get('/new', recipesController.new);
 //all recipes

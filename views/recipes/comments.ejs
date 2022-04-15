@@ -7,7 +7,7 @@
 <% recipe.comments.map((comment) => { -%>
     <% console.log(comment) %> 
     <% if(comment.userID.equals(user._id)) { %> 
-    <form action="/recipes/delete/<%= comment._id %>" method='POST'>
+    <form action="/recipes/delete/<%= recipe._id %>/<%= comment._id %> " method='POST'>
         <button type="submit" value="submit">Delete Comment</button>
     </form>
     <% } %> 
