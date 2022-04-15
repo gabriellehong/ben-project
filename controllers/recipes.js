@@ -10,7 +10,21 @@ module.exports = {
     delete: deleteRecipe,
     edit: editRecipe,
     findEdit,
+    deleteRecipe,
 };
+//delete original recipede
+function deleteRecipe(req, res){
+    console.log("here", req.params.id)
+    Recipes.deleteOne({_id: req.params.id}, function(err, recipe){
+        if(err) console.log(err);
+        console.log(req.user)
+        // User.deleteOne({originalRecipes: req.params.id}, function(err, user){
+        //     if (err) console.log(err);
+        //     res.redirect(`/profile`, {recipe})
+        // })
+    })
+}
+
 //get to edit recipe page
 function findEdit(req, res) {
     Recipes.findById(req.params.id, function(err, recipe) {
@@ -38,10 +52,6 @@ function editRecipe(req, res){
         })
     })
 }
-//delete original recipede
-function deleteRecipe(req, res){
-    Recipes.deleteOne({ })
-}
 //get filter for searched recipe thru searchbar
 function filterRecipes(req, res) {
     const queryString = req.query;
@@ -63,7 +73,6 @@ function createRecipe(req,res) {
         }
         const user = req.user;
         user.originalRecipes.push(recipe);
-        console.log('user original recipe', user)
         user.save();
         res.redirect('recipes/all')
     })

@@ -2,23 +2,19 @@
     <%- include('./navbar')  %> 
 
     <% if(user){%>
+        
         <h1>Hello, <%= user.name %> </h1>
         <div>Original Recipes:</div>
         <% user.originalRecipes.map((recipe) => { %> 
-            <% console.log('user recipes', user.originalRecipes) %> 
             <div>
                 <a href="/recipes/<%= recipe._id%> "><%= recipe.name %></a>
                 <span>
                     <a href="/recipes/edit/<%= recipe._id %> " id="edit-button">Edit</a>
-                    <button id="delete-button" onClick="deleteRecipe()">Delete</button>
+                    <form method="delete" action="/recipes/delete/<%= recipe._id %>">
+                        <input id="delete-button" type="submit" value="delete" name="<%= recipe._id %> ">
+                    </form>
                 </span>
             </div>
         <% }) %> 
     <% } %>  
-    <script>
-        function deleteRecipe(recipeID){
-            const deleteBtn = document.getElementById('delete-button');
-            deleteBtn.load()
-        }
-    </script>
 </div>
