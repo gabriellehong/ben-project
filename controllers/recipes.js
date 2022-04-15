@@ -1,4 +1,4 @@
-const { Recipes } = require('../models/recipes');
+const { Recipes, User } = require('../models/recipes');
 
 module.exports = {
     new: newRecipe,
@@ -9,13 +9,36 @@ module.exports = {
     filter: filterRecipes,
     delete: deleteRecipe,
     edit: editRecipe,
+    findEdit,
 };
-
+//get to edit recipe page
+function findEdit(req, res) {
+    Recipes.findById(req.params.id, function(err, recipe) {
+        if (err) console.log(err)
+        res.render("recipes/edit", {
+            recipe
+        })
+    })
+}
 //post edit recipe
 function editRecipe(req, res){
-    res.render('recipes/edit')
+    Recipes.updateOne({_id: req.params.id}, {$set: {...req.body}}, function(err, recipe){
+        if(err) console.log(err);
+        const userID = req.user._id;
+        const user = req.user;
+        const updatedRecipes = user.originalRecipes.map((r) => {
+            if(r._id.toString() === req.params.id.toString()) {
+                r.name = req.body.name;
+            }
+            return r;
+        })
+        User.updateOne({_id: userID}, { $set: { originalRecipes: updatedRecipes }}, function(err, user){
+            if (err) console.log(err);
+            res.redirect(`/recipes/${req.params.id}`)
+        })
+    })
 }
-//delete original recipe
+//delete original recipede
 function deleteRecipe(req, res){
     Recipes.deleteOne({ })
 }

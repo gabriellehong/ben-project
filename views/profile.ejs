@@ -5,20 +5,17 @@
         <h1>Hello, <%= user.name %> </h1>
         <div>Original Recipes:</div>
         <% user.originalRecipes.map((recipe) => { %> 
+            <% console.log('user recipes', user.originalRecipes) %> 
             <div>
                 <a href="/recipes/<%= recipe._id%> "><%= recipe.name %></a>
                 <span>
-                    <a href="/recipes/edit/<% recipe._id %> " id="edit-button">Edit</a>
+                    <a href="/recipes/edit/<%= recipe._id %> " id="edit-button">Edit</a>
                     <button id="delete-button" onClick="deleteRecipe()">Delete</button>
                 </span>
             </div>
         <% }) %> 
     <% } %>  
     <script>
-        // function editRecipe(recipeID){
-        //     const editButton = document.getElementById('edit-button');
-        //     editButton.load("/recipes/edit/:id")
-        // }
         function deleteRecipe(recipeID){
             const deleteBtn = document.getElementById('delete-button');
             deleteBtn.load()

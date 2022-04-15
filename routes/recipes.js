@@ -12,12 +12,14 @@ router.get('/all', recipesController.all);
 router.get('/search/:query', recipesController.filter)
 //individual recipe
 router.get('/:id', recipesController.one)
-//post
+//post recipe
 router.post('/', recipesController.create)
 //posting comment
 router.post('/comment/:id', recipesController.comment)
-//edit recipe
-router.get('/edit/:id', recipesController.edit)
+//get find recipe to edit
+router.get('/edit/:id', recipesController.findEdit)
+//post edit recipe
+router.post('/edit/:id', recipesController.edit)
 
 
 

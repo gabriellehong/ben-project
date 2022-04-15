@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     avatar: String,
     likedRecipes: [Number],
-    originalRecipes: [ recipesSchema ],
+    originalRecipes: [ { name: String, id: mongoose.Schema.Types.ObjectId } ],
 });
 
 const Recipes = mongoose.model('recipes', recipesSchema);
@@ -73,6 +73,7 @@ const seed = () => {
 // mongoose.connection.collections['users'].drop(function(err) {
 //     console.log('collection dropped')
 // })
+// console.log(mongoose.connection.collections)
 
 // seed() 
 
