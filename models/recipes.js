@@ -14,6 +14,9 @@ const commentsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    userID: {
+        type: mongoose.Schema.Types.ObjectId
+    }
 });
 
 const recipesSchema = new mongoose.Schema({
@@ -59,6 +62,7 @@ const userSchema = new mongoose.Schema({
 
 const Recipes = mongoose.model('recipes', recipesSchema);
 const User = mongoose.model('User', userSchema);
+const Comments = mongoose.model('Comments', commentsSchema);
 
 const seed = () => {
     Recipes.insertMany(data)
@@ -73,11 +77,15 @@ const seed = () => {
 // mongoose.connection.collections['users'].drop(function(err) {
 //     console.log('collection dropped')
 // })
+// mongoose.connection.collections['comments'].drop(function(err) {
+//     console.log('collection dropped')
+// })
 // console.log(mongoose.connection.collections)
 
 // seed() 
 
 module.exports = {
     Recipes,
-    User
+    User, 
+    Comments
 }

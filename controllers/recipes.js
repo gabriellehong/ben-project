@@ -1,4 +1,4 @@
-const { Recipes, User } = require('../models/recipes');
+const { Recipes, User, Comments } = require('../models/recipes');
 
 module.exports = {
     new: newRecipe,
@@ -7,29 +7,18 @@ module.exports = {
     all,
     comment: addComment,
     filter: filterRecipes,
-    delete: deleteRecipe,
     edit: editRecipe,
     findEdit,
-    deleteRecipe,
+    deleteComment,
 };
-//delete original recipede
-function deleteRecipe(req, res){
-    Recipes.deleteOne({_id: req.params.id}, function(err, recipe){
-        if(err) console.log(err);
-        console.log(req.user.originalRecipes)
-        const deleteRecipe = req.user.originalRecipes.map((r) => {
-            if (r._id.toString() === req.params.id.toString()) {
-                console.log('hitting here')
-                return r;
-            }
-        })
-        req.user.deleteOne({originalRecipes: deleteRecipe}, function(err, user){
-            if (err) console.log(err);
-            res.render(`/profile`)
-        })
+function deleteComment(req,res){
+    Comments.findOne({_id: req.params.id}, function(err, recipe) {
+        if(err) console.log(EvalError)
+        const commentDoc = recipe.comments.userID(req.user._id);
+        commentDoc.remove()
+        res.redirect(`recipes/${reci}`)
     })
 }
-
 //get to edit recipe page
 function findEdit(req, res) {
     Recipes.findById(req.params.id, function(err, recipe) {
@@ -105,10 +94,11 @@ function all(req, res){
 //post comment to specific recipe
 function addComment(req, res) {
     const name = req.user.name;
+    const userID = req.user._id
     const date = new Date();
     Recipes.findById(req.params.id, function(err, recipe){
         if (err) console.log(err)
-        const data = { name, date, ...req.body }
+        const data = { name, userID, date, ...req.body }
         recipe.comments.push(data)
         recipe.save()
         res.redirect(`/recipes/${recipe._id}`)
